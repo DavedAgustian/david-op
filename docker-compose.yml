@@ -3,14 +3,23 @@ version: '2'
 services:
   david-op:
     build: .
-    command: >
-    gunicorn -b 0.0.0.0:8000
-    --access-logfile -
-    --reload
-    "david-op.app:create_app()"
+    command: gunicorn -b 0.0.0.0:8000 --access-logfile - --reload "david-op.app:create_app()"
     environment:
-      PYTHONUNBUFFERED:
+      PYTHONUNBUFFERED: 'true'
     volumes:
       - '.:/david-op'
     ports:
       - '8000:8000'
+
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'devuser'
+      POSTGRES_PASSWORD: 'devpassword'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    ports:
+      - '5433:5432'
+
+volumes:
+  postgres:

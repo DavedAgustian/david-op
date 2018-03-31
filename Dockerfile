@@ -1,4 +1,4 @@
-                                                                           ROM python:2.7-slim
+FROM python:2.7-slim
 MAINTAINER David Agustian <agustian42@gmail.com>
 
 RUN apt-get update && apt-get install -qq -y \
